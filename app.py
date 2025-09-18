@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # OpenAI API
 load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI()
 
 # TRIZパラメータ一覧
 TRIZ_PARAMETERS = [
