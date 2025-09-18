@@ -3,3 +3,4 @@ gunicorn
 openai>=1.56.0
 python-dotenv
 pandas
+openpyxl
