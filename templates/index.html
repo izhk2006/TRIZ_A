@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TRIZ マトリックス</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        label {
+            font-size: 1.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        textarea { width: 100%; font-size: 1.2em; }
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #45a049; }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #loading {
+            display: none;
+            font-size: 2em;
+            color: red;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <h2>TRIZ マトリックス - 技術的要求解析</h2>
+
+    <form method="POST" onsubmit="showLoading()">
+        <label>技術的要求を入力してください:</label>
+        <textarea name="requirement" rows="4">{{ requirement if requirement else "" }}</textarea><br><br>
+        <button type="submit">解析する</button>
+    </form>
+
+    <div id="loading">解析中．．．</div>
+
+    {% if requirement %}
+    <div class="result">
+        <h3>解析結果</h3>
+        <p><b>技術的要求:</b> {{ requirement }}</p>
+        <p><b>改善パラメータ:</b> {{ improved }}</p>
+        <p><b>劣化パラメータ:</b> {{ worsened }}</p>
+
+        {% if principles %}
+            <h4>対応するTRIZ発明原理と事例</h4>
+            <ul>
+            {% for num, name, example in principles %}
+                <li><b>{{ num }}: {{ name }}</b><br>
+                    <i>事例:</i> {{ example }}
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>対応するTRIZの発明原理は見つかりませんでした。</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</body>
+</html>
